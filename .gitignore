@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+out/
+build/
+dist/
+
+# Vercel
+.vercel/
+
+# Claude Code
+.claude/
+
+# Python virtual environment
+venv/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+.env.*
+
+# Root duplicate files (already in public/)
+/favicon_16x16.png
+/googled064856ae1028913.html
+/naver03a5b9fb2921654eb212cd1f43360220.html
+
+# Reference images (dev only)
+profile/
+node_modules
