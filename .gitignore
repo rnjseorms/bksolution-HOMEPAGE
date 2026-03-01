@@ -40,3 +40,4 @@ config.json
 
 # Reference images (dev only)
 profile/
+.vercel
