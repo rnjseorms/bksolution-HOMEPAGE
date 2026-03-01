@@ -1,6 +1,10 @@
 'use client'
 
+import { useState } from 'react'
+
 export default function KakaoCta() {
+  const [showPhoneModal, setShowPhoneModal] = useState(false)
+
   return (
     <>
       {/* Desktop: floating right side */}
@@ -23,13 +27,13 @@ export default function KakaoCta() {
           </span>
         </a>
 
-        {/* 전화 상담 */}
-        <a
-          href="tel:1599-7457"
+        {/* 전화 상담 - PC에서는 모달 표시 */}
+        <button
+          onClick={() => setShowPhoneModal(true)}
           className="flex flex-col items-center gap-1 group"
           aria-label="전화 상담"
         >
-          <div className="w-14 h-14 rounded-full bg-brand-blue flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200">
+          <div className="w-14 h-14 rounded-full bg-brand-blue flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200 cursor-pointer">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="white"/>
             </svg>
@@ -37,8 +41,39 @@ export default function KakaoCta() {
           <span className="text-[10px] font-bold text-foreground bg-background/90 backdrop-blur-sm px-2 py-0.5 rounded-full shadow-sm border border-border">
             즉시 상담연결
           </span>
-        </a>
+        </button>
       </div>
+
+      {/* PC 전화번호 안내 모달 */}
+      {showPhoneModal && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          onClick={() => setShowPhoneModal(false)}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl p-8 mx-4 max-w-sm w-full text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="w-16 h-16 rounded-full bg-brand-blue flex items-center justify-center mx-auto mb-4">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="white"/>
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">전화 상담 안내</h3>
+            <p className="text-gray-600 mb-4">아래 번호로 전화주시면<br/>친절하게 상담해드리겠습니다.</p>
+            <div className="bg-gray-50 rounded-xl py-4 px-6 mb-6">
+              <span className="text-3xl font-bold text-brand-blue tracking-wide">1599-7457</span>
+            </div>
+            <p className="text-sm text-gray-500 mb-6">24시간 상담가능</p>
+            <button
+              onClick={() => setShowPhoneModal(false)}
+              className="w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-colors"
+            >
+              닫기
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Mobile & Tablet: fixed bottom bar */}
       <div className="md:hidden fixed bottom-0 left-0 z-50 flex w-screen max-w-full overflow-hidden">
