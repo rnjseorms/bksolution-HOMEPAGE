@@ -88,7 +88,7 @@ const testimonials = [
     industry: '외식·식품업',
     amount: '₩1.8억 지원',
     content:
-      '정책자금이 있다는 건 알았지만 어디서 시작해야 할지 몰랐습니다. 무료 상담 한 번으로 우리 기업에 맞는 자금을 정확히 알려주시고, 14일 만에 승인까지 받았습니다. 추천합니다!',
+      '정책자금이 있다는 건 알았지만 어디서 시작해야 할지 몰랐습니다. 무료 상담 한 번으로 우리 기업에 맞는 자금을 정확히 알려주시고, 20일 만에 승인까지 받았습니다. 추천합니다!',
     rating: 5,
   },
   {
@@ -225,7 +225,7 @@ export default function PricingPage() {
               실제 고객사의 <span className="text-brand-blue">생생한 성공 스토리</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto leading-loose">
-              3,200+ 기업이 선택한 이유를 직접 들어보세요.
+              1,400+ 기업이 선택한 이유를 직접 들어보세요.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-5">

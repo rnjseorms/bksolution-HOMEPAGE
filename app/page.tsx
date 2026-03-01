@@ -12,10 +12,16 @@ export default function HomePage() {
     <main className="min-h-screen bg-background overflow-x-hidden break-keep">
       <HeroSection />
       <ServicesSection />
-      <StatsSection />
-      <ProcessSection />
+      <div className="hidden md:block">
+        <StatsSection />
+      </div>
+      <div className="hidden md:block">
+        <ProcessSection />
+      </div>
       <TestimonialsSection />
-      <PricingSection />
+      <div className="hidden md:block">
+        <PricingSection />
+      </div>
       <FaqSection />
       <ContactForm />
     </main>

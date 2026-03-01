@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import {
   Building2, Microscope, Lightbulb, Users, Banknote, Award
 } from 'lucide-react'
@@ -50,9 +50,83 @@ const services = [
   },
 ]
 
+function ServiceCard({
+  service,
+  i,
+  visible,
+  className = '',
+}: {
+  service: (typeof services)[number]
+  i: number
+  visible: boolean
+  className?: string
+}) {
+  return (
+    <div
+      className={`group relative rounded-2xl border p-6 cursor-pointer scroll-reveal ${visible ? 'is-visible' : ''} ${
+        service.highlight
+          ? 'bg-brand-blue border-brand-blue text-white'
+          : 'bg-card border-border hover:border-brand-blue/30 hover:shadow-lg hover:shadow-brand-blue/5'
+      } ${className}`}
+      style={{ transitionDelay: `${200 + i * 80}ms` }}
+    >
+      {service.highlight && (
+        <div className="absolute top-3 right-3 bg-white/20 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+          인기
+        </div>
+      )}
+
+      <div
+        className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110 ${
+          service.highlight ? 'bg-white/20' : 'bg-brand-blue-subtle'
+        }`}
+      >
+        <service.icon
+          className={`w-5 h-5 ${service.highlight ? 'text-white' : 'text-brand-blue'}`}
+        />
+      </div>
+
+      <h3
+        className={`text-lg font-bold mb-2 ${
+          service.highlight ? 'text-white' : 'text-foreground'
+        }`}
+      >
+        {service.title}
+      </h3>
+
+      <p
+        className={`text-sm leading-relaxed mb-4 ${
+          service.highlight ? 'text-white/80' : 'text-muted-foreground'
+        }`}
+      >
+        {service.desc}
+      </p>
+
+      <div className="flex flex-wrap gap-1.5">
+        {service.tags.map((tag) => (
+          <span
+            key={tag}
+            className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
+              service.highlight
+                ? 'bg-white/20 text-white'
+                : 'bg-brand-blue-subtle text-brand-blue'
+            }`}
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function ServicesSection() {
   const ref = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const userInteractedRef = useRef(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,8 +137,87 @@ export default function ServicesSection() {
     return () => observer.disconnect()
   }, [])
 
+  // Track active slide from scroll position (center-based)
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const centerX = el.scrollLeft + el.clientWidth / 2
+    let closest = 0
+    let minDist = Infinity
+    const children = el.children
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i] as HTMLElement
+      const childCenter = child.offsetLeft + child.offsetWidth / 2
+      const dist = Math.abs(centerX - childCenter)
+      if (dist < minDist) {
+        minDist = dist
+        closest = i
+      }
+    }
+    setActiveIndex(closest)
+  }, [])
+
+  // Auto-play for mobile
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    const isMobile = window.matchMedia('(max-width: 767px)').matches
+    if (!isMobile) return
+
+    let currentIdx = 0
+    const scrollToCenter = (index: number) => {
+      const child = el.children[index] as HTMLElement
+      if (!child) return
+      const scrollLeft = child.offsetLeft - (el.clientWidth - child.offsetWidth) / 2
+      el.scrollTo({ left: scrollLeft, behavior: 'smooth' })
+    }
+
+    const startAutoPlay = () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current)
+      autoPlayRef.current = setInterval(() => {
+        if (userInteractedRef.current) return
+        currentIdx = (currentIdx + 1) % services.length
+        scrollToCenter(currentIdx)
+      }, 3000)
+    }
+
+    startAutoPlay()
+
+    // Pause on touch, resume after
+    const onTouchStart = () => {
+      userInteractedRef.current = true
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current)
+    }
+    const onTouchEnd = () => {
+      setTimeout(() => {
+        userInteractedRef.current = false
+        startAutoPlay()
+      }, 5000)
+    }
+
+    el.addEventListener('touchstart', onTouchStart, { passive: true })
+    el.addEventListener('touchend', onTouchEnd, { passive: true })
+
+    return () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current)
+      el.removeEventListener('touchstart', onTouchStart)
+      el.removeEventListener('touchend', onTouchEnd)
+    }
+  }, [])
+
+  // Scroll to specific slide (center-aligned)
+  const scrollToIndex = useCallback((index: number) => {
+    const el = scrollRef.current
+    if (!el) return
+    const child = el.children[index] as HTMLElement
+    if (!child) return
+    const scrollLeft = child.offsetLeft - (el.clientWidth - child.offsetWidth) / 2
+    el.scrollTo({ left: scrollLeft, behavior: 'smooth' })
+  }, [])
+
   return (
-    <section id="services" className="py-28 md:py-24 bg-background overflow-hidden" ref={ref}>
+    <section id="services" className="py-16 md:py-24 bg-background overflow-hidden" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className={`text-center mb-16 scroll-reveal ${visible ? 'is-visible' : ''}`}>
@@ -84,67 +237,42 @@ export default function ServicesSection() {
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <div
+            ref={scrollRef}
+            onScroll={handleScroll}
+            className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4"
+            style={{ paddingLeft: 'calc((100vw - 80vw) / 2)', paddingRight: 'calc((100vw - 80vw) / 2)' }}
+          >
+            {services.map((service, i) => (
+              <div key={service.title} className="snap-center shrink-0 w-[80vw] max-w-[320px]">
+                <ServiceCard service={service} i={i} visible={visible} className="h-full" />
+              </div>
+            ))}
+          </div>
+
+          {/* Dots indicator */}
+          <div className="flex justify-center gap-1.5 mt-4">
+            {services.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollToIndex(i)}
+                className={`rounded-full transition-all duration-300 ${
+                  i === activeIndex
+                    ? 'w-6 h-2 bg-brand-blue'
+                    : 'w-2 h-2 bg-border hover:bg-muted-foreground/40'
+                }`}
+                aria-label={`슬라이드 ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((service, i) => (
-            <div
-              key={service.title}
-              className={`group relative rounded-2xl border p-6 cursor-pointer scroll-reveal ${visible ? 'is-visible' : ''} ${
-                service.highlight
-                  ? 'bg-brand-blue border-brand-blue text-white'
-                  : 'bg-card border-border hover:border-brand-blue/30 hover:shadow-lg hover:shadow-brand-blue/5'
-              }`}
-              style={{ transitionDelay: `${200 + i * 80}ms` }}
-            >
-              {service.highlight && (
-                <div className="absolute top-3 right-3 bg-white/20 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-                  인기
-                </div>
-              )}
-
-              <div
-                className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110 ${
-                  service.highlight
-                    ? 'bg-white/20'
-                    : 'bg-brand-blue-subtle'
-                }`}
-              >
-                <service.icon
-                  className={`w-5 h-5 ${service.highlight ? 'text-white' : 'text-brand-blue'}`}
-                />
-              </div>
-
-              <h3
-                className={`text-lg font-bold mb-2 ${
-                  service.highlight ? 'text-white' : 'text-foreground'
-                }`}
-              >
-                {service.title}
-              </h3>
-
-              <p
-                className={`text-sm leading-relaxed mb-4 ${
-                  service.highlight ? 'text-white/80' : 'text-muted-foreground'
-                }`}
-              >
-                {service.desc}
-              </p>
-
-              <div className="flex flex-wrap gap-1.5">
-                {service.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
-                      service.highlight
-                        ? 'bg-white/20 text-white'
-                        : 'bg-brand-blue-subtle text-brand-blue'
-                    }`}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <ServiceCard key={service.title} service={service} i={i} visible={visible} />
           ))}
         </div>
       </div>

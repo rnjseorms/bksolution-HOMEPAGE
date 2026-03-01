@@ -16,6 +16,10 @@ dist/
 # Python virtual environment
 venv/
 
+# Python cache
+__pycache__/
+*.pyc
+
 # OS files
 .DS_Store
 Thumbs.db
@@ -23,6 +27,11 @@ Thumbs.db
 # Environment / secrets
 .env
 .env.*
+config.json
+
+# Test / debug files
+*.txt
+!public/*.txt
 
 # Root duplicate files (already in public/)
 /favicon_16x16.png
@@ -31,4 +40,3 @@ Thumbs.db
 
 # Reference images (dev only)
 profile/
-node_modules

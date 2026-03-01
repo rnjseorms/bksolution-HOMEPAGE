@@ -5,10 +5,10 @@ import Image from 'next/image'
 import { Target, Eye, Users2, BarChart3, Trophy, Zap, Building2, Handshake } from 'lucide-react'
 
 const stats = [
-  { icon: BarChart3, value: '1,200억+', label: '누적 지원 금액', desc: '2026년 설립 이래 누적' },
-  { icon: Users2, value: '3,200+', label: '고객사 수', desc: '전국 중소기업·스타트업' },
-  { icon: Trophy, value: '94.2%', label: '자금 승인율', desc: '업계 평균 대비 2배' },
-  { icon: Zap, value: '평균 14일', label: '처리 기간', desc: '신청에서 승인까지' },
+  { icon: BarChart3, value: '342억', label: '누적 지원 금액', desc: '2026년 설립 이래 누적' },
+  { icon: Users2, value: '1,400+', label: '고객사 수', desc: '전국 중소기업·스타트업' },
+  { icon: Trophy, value: '96%', label: '자금 승인율', desc: '업계 평균 대비 2배' },
+  { icon: Zap, value: '평균 20일', label: '처리 기간', desc: '신청에서 승인까지' },
 ]
 
 const partners = [
@@ -64,9 +64,9 @@ export default function AboutPage() {
             <span className="text-brand-blue">부광솔루션즈</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-loose">
-            2026년 설립 이래 3,200개 이상의 기업에게
+            2026년 설립 이래 1,400개 이상의 기업에게
             <br className="hidden sm:block" />
-            1,200억 원 이상의 정책자금을 연결한 대한민국 대표 정책자금 전문 컨설팅 기업입니다.
+            342억 원의 정책자금을 연결한 대한민국 대표 정책자금 전문 컨설팅 기업입니다.
           </p>
         </div>
       </section>

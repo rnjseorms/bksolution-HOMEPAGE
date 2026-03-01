@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { RippleButton } from '@/components/ui/ripple-button'
 import confetti from 'canvas-confetti'
 import { Send, CheckCircle2, Loader2, X } from 'lucide-react'
+import { ShineBorder } from '@/components/ui/shine-border'
 
 const termsContent = `【이용약관】
 
@@ -261,7 +262,12 @@ export default function ContactForm() {
           style={{ transitionDelay: '200ms' }}
         >
           {submitted ? (
-            <div className="bg-card border border-border rounded-2xl p-10 text-center">
+            <div className="relative overflow-hidden bg-card border border-border rounded-2xl p-10 text-center">
+              <ShineBorder
+                borderWidth={2}
+                duration={10}
+                shineColor={['#16a34a', '#22c55e', '#4ade80']}
+              />
               <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-4">
                 <CheckCircle2 className="w-8 h-8 text-green-500" />
               </div>
@@ -272,7 +278,12 @@ export default function ContactForm() {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl p-6 sm:p-8 space-y-5">
+            <form onSubmit={handleSubmit} className="relative overflow-hidden bg-card border border-border rounded-2xl p-6 sm:p-8 space-y-5">
+              <ShineBorder
+                borderWidth={2}
+                duration={10}
+                shineColor={['#1e40af', '#3b82f6', '#60a5fa']}
+              />
               {/* 이름 */}
               <div>
                 <input

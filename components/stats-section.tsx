@@ -53,15 +53,15 @@ function CountUp({
 const stats = [
   {
     icon: BarChart3,
-    target: 1200,
+    target: 342,
     prefix: '',
-    suffix: '억+',
+    suffix: '억',
     label: '누적 지원 금액',
     desc: '2026년 설립 이래 누적',
   },
   {
     icon: Users2,
-    target: 3200,
+    target: 1400,
     prefix: '',
     suffix: '+',
     label: '고객사 수',
@@ -69,7 +69,7 @@ const stats = [
   },
   {
     icon: Trophy,
-    target: 94,
+    target: 96,
     prefix: '',
     suffix: '%',
     label: '자금 승인율',
@@ -77,7 +77,7 @@ const stats = [
   },
   {
     icon: Zap,
-    target: 14,
+    target: 20,
     prefix: '평균 ',
     suffix: '일',
     label: '처리 기간',
@@ -105,7 +105,7 @@ export default function StatsSection() {
   }, [])
 
   return (
-    <section id="stats" className="py-28 md:py-24 bg-secondary/30 overflow-hidden" ref={ref}>
+    <section id="stats" className="py-16 md:py-24 bg-secondary/30 overflow-hidden" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className={`text-center mb-16 scroll-reveal ${visible ? 'is-visible' : ''}`}>

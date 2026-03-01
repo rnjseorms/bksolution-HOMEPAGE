@@ -22,7 +22,7 @@ const plans = [
   {
     name: '스탠다드',
     price: '성공 보수',
-    period: '승인 금액의 3~5%',
+    period: '',
     desc: '가장 많이 선택하는 합리적인 플랜',
     features: [
       '기업 진단 무제한',

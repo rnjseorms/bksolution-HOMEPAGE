@@ -71,7 +71,7 @@ const floatingCards = [
   {
     icon: Clock,
     title: '처리 기간',
-    value: '평균 14일',
+    value: '평균 20일',
     sub: '신속 심사 완료',
     color: 'text-brand-gold',
     bg: 'bg-brand-gold/10',
@@ -150,7 +150,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-16">
+    <section className="relative md:min-h-screen md:flex md:items-center overflow-hidden pt-[60px] md:pt-16">
       {/* Grid background */}
       <div className="absolute inset-0 hero-grid opacity-50" />
 
@@ -158,20 +158,20 @@ export default function HeroSection() {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[min(600px,100vw)] h-[min(600px,100vw)] rounded-full bg-brand-blue/10 blur-[120px] animate-pulse-glow pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[min(400px,80vw)] h-[min(400px,80vw)] rounded-full bg-brand-gold/5 blur-[100px] animate-pulse-glow pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-20 w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Content */}
           <div className={`scroll-reveal ${visible ? 'is-visible' : ''}`}>
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-brand-blue-subtle text-brand-blue px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border border-brand-blue/20">
+            <div className="inline-flex items-center gap-2 bg-brand-blue-subtle text-brand-blue px-3 py-1.5 rounded-full text-xs font-semibold mb-4 md:mb-6 border border-brand-blue/20">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-blue animate-pulse" />
-              2026년 정책자금 지원 1,200억 달성
+              2026년 정책자금 지원 342억 달성
             </div>
 
             {/* Heading — 타이핑 모션 */}
             <TypingHeading start={visible} />
 
-            <p className="text-lg text-muted-foreground leading-loose mb-8 max-w-lg">
+            <p className="text-lg text-muted-foreground leading-loose mb-6 md:mb-8 max-w-lg">
               중소기업·스타트업의 성장을 막는 자금 장벽을 허물어 드립니다.
               <br className="hidden sm:block" />
               정부 지원금부터 저금리 정책 대출까지,
@@ -180,7 +180,7 @@ export default function HeroSection() {
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-3 mb-10">
+            <div className="flex flex-wrap gap-3 mb-6 md:mb-10">
               <a href="#contact">
                 <RippleButton
                   rippleColor="#ffffff"
@@ -195,9 +195,9 @@ export default function HeroSection() {
             {/* Trust badges */}
             <div className="flex flex-wrap gap-4">
               {[
-                { text: '승인율 94.2%', icon: CheckCircle2 },
+                { text: '승인율 96%', icon: CheckCircle2 },
                 { text: '전문 컨설턴트 50+', icon: CheckCircle2 },
-                { text: '누적 고객사 3,200+', icon: CheckCircle2 },
+                { text: '누적 고객사 1,400+', icon: CheckCircle2 },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-1.5 text-sm text-muted-foreground">
                   <item.icon className="w-4 h-4 text-brand-blue shrink-0" />
@@ -299,14 +299,14 @@ export default function HeroSection() {
 
         {/* Stats bar */}
         <div
-          className={`mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-border pt-10 scroll-reveal ${visible ? 'is-visible' : ''}`}
+          className={`mt-8 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-border pt-6 md:pt-10 scroll-reveal ${visible ? 'is-visible' : ''}`}
           style={{ transitionDelay: '500ms' }}
         >
           {[
-            { label: '누적 지원 금액', value: 1200, suffix: '억+', unit: '' },
-            { label: '고객사 수', value: 3200, suffix: '+', unit: '' },
-            { label: '평균 승인율', value: 94, suffix: '%', unit: '' },
-            { label: '평균 처리 기간', value: 14, suffix: '일', unit: '' },
+            { label: '누적 지원 금액', value: 342, suffix: '억', unit: '' },
+            { label: '고객사 수', value: 1400, suffix: '+', unit: '' },
+            { label: '평균 승인율', value: 96, suffix: '%', unit: '' },
+            { label: '평균 처리 기간', value: 20, suffix: '일', unit: '' },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <p className="text-3xl font-black text-foreground">
