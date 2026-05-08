@@ -47,15 +47,20 @@ export default function CtaFooter() {
           </p>
 
           <div className="flex justify-center mb-12">
-            <a href="#contact">
-              <RippleButton
-                rippleColor="oklch(0.45 0.18 250)"
-                className="bg-white text-brand-blue hover:bg-white/90 font-bold px-8 text-base h-12 rounded-lg group"
-              >
-                무료 상담 신청하기
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </RippleButton>
-            </a>
+            <RippleButton
+              rippleColor="oklch(0.45 0.18 250)"
+              className="bg-white text-brand-blue hover:bg-white/90 font-bold px-8 text-base h-12 rounded-lg group"
+              onClick={() => {
+                if (window.location.pathname === '/') {
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                } else {
+                  window.location.href = '/#contact'
+                }
+              }}
+            >
+              무료 상담 신청하기
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </RippleButton>
           </div>
 
           {/* Contact badges */}

@@ -181,15 +181,14 @@ export default function HeroSection() {
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-3 mb-6 md:mb-10">
-              <a href="#contact">
-                <RippleButton
+              <RippleButton
                   rippleColor="#ffffff"
                   className="bg-brand-blue hover:bg-brand-blue/90 text-primary-foreground font-bold px-6 text-base h-12 rounded-lg group"
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   무료 상담 신청하기
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </RippleButton>
-              </a>
             </div>
 
             {/* Trust badges */}

@@ -91,14 +91,19 @@ export default function Navbar() {
           >
             {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
-          <a href="/#contact">
-            <RippleButton
+          <RippleButton
               rippleColor="#ffffff"
               className="bg-brand-blue hover:bg-brand-blue/90 text-primary-foreground text-sm font-semibold px-4 h-9 rounded-lg"
+              onClick={() => {
+                if (window.location.pathname === '/') {
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                } else {
+                  window.location.href = '/#contact'
+                }
+              }}
             >
               무료 상담 신청
             </RippleButton>
-          </a>
         </div>
 
         {/* Mobile Actions */}
@@ -136,14 +141,20 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <a href="/#contact" onClick={() => setIsMobileOpen(false)}>
-            <RippleButton
+          <RippleButton
               rippleColor="#ffffff"
               className="w-full bg-brand-blue hover:bg-brand-blue/90 text-primary-foreground font-semibold h-10 rounded-lg"
+              onClick={() => {
+                setIsMobileOpen(false)
+                if (window.location.pathname === '/') {
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                } else {
+                  window.location.href = '/#contact'
+                }
+              }}
             >
               무료 상담 신청
             </RippleButton>
-          </a>
         </div>
       )}
     </header>

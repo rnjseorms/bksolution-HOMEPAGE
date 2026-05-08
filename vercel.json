@@ -11,5 +11,13 @@
       "destination": "https://www.solutionbk.com/:path*",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    { "source": "/sb",                "destination": "https://biz.solutionbk.com/sb" },
+    { "source": "/sb/:path*",         "destination": "https://biz.solutionbk.com/sb/:path*" },
+    { "source": "/sme",               "destination": "https://ceo.solutionbk.com/sme" },
+    { "source": "/sme/:path*",        "destination": "https://ceo.solutionbk.com/sme/:path*" },
+    { "source": "/images/sb/:path*",  "destination": "https://biz.solutionbk.com/images/sb/:path*" },
+    { "source": "/images/sme/:path*", "destination": "https://ceo.solutionbk.com/images/sme/:path*" }
   ]
 }
