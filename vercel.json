@@ -18,6 +18,7 @@
     { "source": "/sme",               "destination": "https://ceo.solutionbk.com/sme" },
     { "source": "/sme/:path*",        "destination": "https://ceo.solutionbk.com/sme/:path*" },
     { "source": "/images/sb/:path*",  "destination": "https://biz.solutionbk.com/images/sb/:path*" },
-    { "source": "/images/sme/:path*", "destination": "https://ceo.solutionbk.com/images/sme/:path*" }
+    { "source": "/images/sme/:path*", "destination": "https://ceo.solutionbk.com/images/sme/:path*" },
+    { "source": "/api/lead/:path*",   "destination": "https://biz.solutionbk.com/api/lead/:path*" }
   ]
 }
